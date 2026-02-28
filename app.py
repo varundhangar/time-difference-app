@@ -40,7 +40,7 @@ class TimeCalculator:
 
 st.title("⏰ Time Difference Calculator")
 
-start_time = st.text_input("Enter Start Time (HH:MM)", "3:13")
+start_time = st.text_input(" Ritik Enter Start Time (HH:MM)", "3:13")
 end_time = st.text_input("Enter End Time (HH:MM)", "5:34")
 
 if st.button("Calculate"):
