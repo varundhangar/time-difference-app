@@ -29,7 +29,16 @@ class TimeCalculator:
         self.difference = self.end_minutes - self.start_minutes
 
     def convert_to_minutes(self, time_str):
-        hours, minutes = map(int, time_str.split(":"))
+        # Example input: "3:15 PM"
+        time_part, period = time_str.split()
+        hours, minutes = map(int, time_part.split(":"))
+
+        # Convert to 24-hour format
+        if period.upper() == "PM" and hours != 12:
+            hours += 12
+        if period.upper() == "AM" and hours == 12:
+            hours = 0
+
         return hours * 60 + minutes
 
     def get_difference(self):
@@ -38,17 +47,16 @@ class TimeCalculator:
         return hours, minutes
 
 
-st.title("⏰ Time Difference Calculator")
+st.title("⏰ Time Difference Calculator (AM/PM)")
 
-start_time = st.text_input(" Ritik Enter Start Time (HH:MM)", "3:13")
-end_time = st.text_input("Enter End Time (HH:MM)", "5:34")
+start_time = st.text_input("Enter Start Time (HH:MM AM/PM)", "3:13 PM")
+end_time = st.text_input("Enter End Time (HH:MM AM/PM)", "5:34 PM")
 
 if st.button("Calculate"):
     try:
         calculator = TimeCalculator(start_time, end_time)
         hours, minutes = calculator.get_difference()
 
-        # Styled Output
         st.markdown(
             f'<div class="big-result">'
             f'The time difference between {start_time} and {end_time} '
@@ -58,4 +66,4 @@ if st.button("Calculate"):
         )
 
     except:
-        st.error("Please enter time in correct format like 3:13")
+        st.error("Please enter time in correct format like 3:13 PM")
